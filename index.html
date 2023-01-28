@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="stopwatch.css">
+     <!-- fontawesome -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <!-- google font -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Orbitron">
+</head>
+<body>
+    <div class="stopwatch-container">
+        <h1 class="time" id="time">00:00:00</h1>
+        <div class="controls">
+            <div id="stop" onclick="watchstop()"><i class="fas fa-stop"></i></div>
+            <div id="play" onclick="chalu()"><i class="fas fa-play"></i></div>
+            <div id="reset" onclick="watchreset()"><i class="fas fa-redo-alt"></i></div>
+        </div>
+    </div>
+    
+</body>
+<script>
+
+    let [seconds, minutes, hours] = [0,0,0];
+    let visibleTime = document.getElementById('time');
+    let timer = null;
+
+    function ghadi(){
+        seconds++;
+        if(seconds == 60){
+            seconds = 0;
+            minutes++;
+            if(minutes == 60){
+                minutes = 0;
+                hours++;
+            }
+        }
+        let ghanta = hours < 10 ? "0" + hours : hours;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        visibleTime.innerHTML = ghanta +":"+ m +":"+ s;
+    }
+
+    function chalu(){
+        if(timer!== null){
+            clearInterval(timer);
+        }
+        timer = setInterval(ghadi,1000);
+    }
+
+    function watchstop(){
+        clearInterval(timer);
+    }
+    function watchreset(){
+        clearInterval(timer);
+        [seconds, minutes, hours] = [0,0,0];
+        visibleTime.innerHTML = "00:00:00";
+    }
+</script>
+</html>
